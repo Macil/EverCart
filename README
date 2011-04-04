@@ -1,0 +1,5 @@
+EverCart is a Bukkit plugin that tracks when a storage cart is moving and will load up chunks to keep it
+moving along the tracks in an area that no players are around to keep it loaded so it will go really long
+distances without the need of players constantly around it. This is especially helpful in RP servers that
+have different towns that are very far apart and need to send supplies back and forth without forcing two
+players to meet up and trade.

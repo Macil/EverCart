@@ -1,0 +1,5 @@
+name: EverCart
+main: com.sparkedia.valrix.evercart.EverCart
+version: 1.0
+author: Valrix
+description: Allows storage carts to move in uninhabited parts of the map
