@@ -24,7 +24,8 @@ public class EverCart extends JavaPlugin {
 		cl = new CartListener(this);
 		
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvent(Event.Type.VEHICLE_MOVE, cl, Event.Priority.Highest, this);
+		pm.registerEvent(Event.Type.VEHICLE_MOVE, cl, Event.Priority.Lowest, this);
+		pm.registerEvent(Event.Type.VEHICLE_COLLISION_BLOCK, cl, Event.Priority.Lowest, this);
 		
 		log.info('['+pName+"]: v"+pdf.getVersion()+" has been enabled.");
 	}
