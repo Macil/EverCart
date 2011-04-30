@@ -24,7 +24,7 @@ public class CartListener extends VehicleListener {
 			if (old.size() > 0) {
 				for (int i = 0; i < old.size(); i++) {
 					Chunk c = old.get(i);
-					v.getWorld().unloadChunkRequest(c.getX(), c.getZ());
+					c.getWorld().unloadChunkRequest(c.getX(), c.getZ());
 				}
 				old.clear();
 			}
@@ -43,7 +43,7 @@ public class CartListener extends VehicleListener {
 				for (int dz = -(range); dz <= range; dz++){
 					Chunk chunk = current.getWorld().getChunkAt(current.getX()+dx, current.getZ()+dz);
 					// Only load in chunks that are not already loaded
-					current.getWorld().loadChunk(chunk);
+					chunk.getWorld().loadChunk(chunk);
 					if (!old.contains(chunk)) {
 						//plugin.log.info("Loading chunk at: ("+chunk.getX()+", "+chunk.getZ()+')');
 						old.add(chunk);
@@ -53,14 +53,13 @@ public class CartListener extends VehicleListener {
 			// Now check to see if we need to unload any chunks
 			for (int i = 0; i < old.size(); i++) {
 				Chunk oc = old.get(i);
-				if (oc.getX() > current.getX()+range || oc.getX() < current.getX()-range) {
+				if (oc.getWorld() != current.getWorld() ||
+				    oc.getX() > current.getX()+range ||
+				    oc.getX() < current.getX()-range ||
+				    oc.getZ() > current.getZ()+range ||
+				    oc.getZ() < current.getZ()-range) {
 					//plugin.log.info("Removing old chunk at: ("+oc.getX()+", "+oc.getZ()+')');
-					current.getWorld().unloadChunkRequest(oc.getX(), oc.getZ());
-					old.remove(oc);
-				}
-				if (oc.getZ() > current.getZ()+range || oc.getZ() < current.getZ()-range) {
-					//plugin.log.info("Removing old chunk at: ("+oc.getX()+", "+oc.getZ()+')');
-					current.getWorld().unloadChunkRequest(oc.getX(), oc.getZ());
+					oc.getWorld().unloadChunkRequest(oc.getX(), oc.getZ());
 					old.remove(oc);
 				}
 			}
